@@ -1,0 +1,12 @@
+.translate_content{
+    width: 75%;
+    margin:auto;
+    font-size: calc(10px + 2vmin);
+    margin-top: 100px;
+}
+
+.options_content{
+    width: 50%;
+    min-height: 500px;
+    margin-top: 200px;
+}
