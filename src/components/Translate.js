@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-
+import "./Translate.css";
+import translate from "translate";
+translate.engine = "deepl";
+translate.key = "get your own key from deepl:)";
 const Translate = () => {
   // SpeechRecognition.startListening({ language: 'zh-CN' })
   // can set language with this wowzers!
@@ -18,18 +21,31 @@ const Translate = () => {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
-
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+  const [translatedLanguage, setLang] = useState("es");
+  
+  const [translatoorText, setTText] = useState();
+  const GetText = async () => {
+    const translooterText = await translate(transcript, translatedLanguage);
+    setTText(translooterText);
+    return(0);
   }
 
+  useEffect(()=>{
+    GetText();
+  });
+
   return (
-    <div>
+    <div className="translate_content">
       <p>Microphone: {listening ? 'on' : 'off'}</p>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
-      <p>{transcript}</p>
+      <div className="microphone_buttons"> 
+        <button className="buttonlog2" onClick={SpeechRecognition.startListening}>Start</button>
+        <button className="buttonlog2" onClick={SpeechRecognition.stopListening}>Stop</button>
+        <button className="buttonlog2" onClick={resetTranscript}>Reset</button>
+      </div>
+      <div className="transcripts">
+        <div><p>{transcript}</p></div>
+        <div><p>{translatoorText}</p></div>
+      </div>
     </div>
   );
 };

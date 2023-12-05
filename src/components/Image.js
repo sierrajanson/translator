@@ -1,80 +1,54 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Tesseract from 'tesseract.js';
+import './Image.css'
+import React, {useEffect, useState, useRef} from 'react';
+import { createWorker } from 'tesseract.js';
 
-const TextRecognition = () => {
-  const videoRef = useRef();
-  const canvasRef = useRef();
-  let mediaStream = null;
-  const [transcript, setTranscript] = useState('');
-  const [isCameraOn, setIsCameraOn] = useState(false);
+import translate from "translate";
+translate.engine = "deepl";
+translate.key = "get your own key from deepl:)";
 
-  const startCamera = async () => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      try {
-        mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        videoRef.current.srcObject = mediaStream;
-        setIsCameraOn(true);
-      } catch (error) {
-        console.error('Error accessing the camera:', error);
-      }
+const Image = () => {
+    //translateText();
+    const videoRef = useRef();
+    const canvasRef = useRef();
+    const [translatedLanguage, setLang] = useState("es");
+    const [file, setFile] = useState();
+    const [text, setText] = useState("N/A");
+    const [translatoorText, setTText] = useState("N/A");
+    const GetText = async () => {
+        const worker = await createWorker();
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+        const { data: { text } } = await worker.recognize(file);
+        await worker.terminate();
+        setText(text);
+        const translooterText = await translate(text, translatedLanguage);
+        setTText(translooterText);
+        return(0);
     }
-  };
-
-  const stopCamera = () => {
-    if (mediaStream) {
-      const tracks = mediaStream.getTracks();
-      tracks.forEach(track => track.stop());
-      videoRef.current.srcObject = null;
-      setIsCameraOn(false);
-      setTranscript('');
+    const handleChange = async (e) => {
+        console.log(e.target.files);
+        setFile(URL.createObjectURL(e.target.files[0]));
+        const returnVal = await GetText();
     }
-  };
+    return (
+        <div className="main_content">
+            <div className="intro">
+                <h1> Image </h1>
+                <h4>Add Image:</h4>
+                <input type="file" onChange={handleChange} />
+                <select onChange={(e) => setLang(e.target.value)}>
+                    <option value="es"> Español </option>
+                    <option value="en"> English </option>
+                    <option value="zh"> 普通话 </option>
+                </select>
+                <div className="transcripts">
+                <p>{text}</p>
+                <p>{translatoorText}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+export default Image;
 
-  const recognizeText = async () => {
-    if (isCameraOn) {
-      const interval = setInterval(async () => {
-        const video = videoRef.current;
-        const canvas = canvasRef.current;
-
-        if (video && canvas) {
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          const context = canvas.getContext('2d');
-          context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-          try {
-            const { data: { text } } = await Tesseract.recognize(canvas, 'eng');
-            setTranscript(text);
-          } catch (error) {
-            console.error('Error recognizing text:', error);
-          }
-        }
-      }, 5000); // Adjust the interval as needed for real-time performance
-
-      return () => clearInterval(interval);
-    }
-  };
-
-  useEffect(() => {
-    recognizeText();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCameraOn]);
-
-  return (
-    <div>
-      {isCameraOn ? (
-        <button onClick={stopCamera}>Turn Off Camera</button>
-      ) : (
-        <button onClick={startCamera}>Turn On Camera</button>
-      )}
-      <video ref={videoRef} width="400" height="300" autoPlay></video>
-      <div>
-        <h3>Transcript:</h3>
-        <p>{transcript}</p>
-      </div>
-      <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-    </div>
-  );
-};
-
-export default TextRecognition;

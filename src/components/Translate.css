@@ -1,7 +1,7 @@
 .translate_content{
     width: 75%;
     margin:auto;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(10px + 0.5vmin);
     margin-top: 100px;
 }
 
@@ -10,3 +10,59 @@
     min-height: 500px;
     margin-top: 200px;
 }
+
+.transcripts{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 15px;
+}
+
+.transcripts p{
+    width: 50%;
+    padding: 15px;
+    background-color: #444;
+}
+.buttonlog2 {
+    appearance: button;
+    background-color: #333;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 0px;
+    position: relative;
+    margin: 10px;
+    outline: none;
+    overflow: visible;
+    padding: 20px auto;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    white-space: nowrap;
+    line-height: 20px;
+    width: 50%;
+  }
+
+  
+  .buttonlog2:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+  }
+  
+  .microphone_buttons{
+    width: 60%;
+    margin: auto;
+    display: flex;
+    grid-template-columns: auto auto auto;
+  }
