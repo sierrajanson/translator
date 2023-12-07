@@ -2,7 +2,7 @@ Translator
 Sierra Janson | November 2023 
 Input language through microphone or by uploading a photo and select a language for it to be translated to. Using React JS, Tesseract, Translate DeepL, and React Speech Recognition.
 
-!url[https://github.com/sierrajanson/translator/blob/master/microphone.gif]
+![Animation](https://github.com/sierrajanson/translator/blob/master/microphone.gif)
 
 Future Ideas:
 - camera translation (need to adjust words only when change spotted instead of constantly)
