@@ -1,0 +1,32 @@
+.link_container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    margin-right:20px;
+    float: right;
+}
+
+.link{
+    display: block;
+    color: #282c34;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+.link:hover {
+   color: #5b5f67;
+}
+
+.home{ 
+    float:left;
+    margin-left: 50px;
+}
+
+.translate_container{
+    margin-right: 50px;
+}

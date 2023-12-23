@@ -1,0 +1,64 @@
+.App {
+  text-align: center;
+}
+
+
+*{
+  color: #282c34;
+  font-family: Verdana;
+}
+
+
+button {
+  appearance: button;
+  background-color: cyan;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 0px;
+  position: relative;
+  margin: 10px;
+  outline: none;
+  overflow: visible;
+  padding: 20px auto;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  line-height: 20px;
+  width: 50%;
+}
+
+
+button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.transcripts{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 100px;
+}
+
+.transcripts p{
+  width: 100%;
+  padding: 15px;
+  color: white;
+  font-size: calc(10px + 0.5vmin);
+  height: 1000px;
+  background-color: darkcyan;
+}
